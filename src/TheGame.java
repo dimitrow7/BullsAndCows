@@ -24,14 +24,14 @@ public class TheGame {
 		// uniqueNumber
 		do {
 			secretNumber = (r.nextInt(9000) + 1000);
-		} while (!uniqueNumber(secretNumber) == true);
+		} while (!uniqueNumber(secretNumber));
 		String secretStr = String.valueOf(secretNumber);
 		boolean game = true;
 		boolean quit = false;
 		Scanner input = new Scanner(System.in);
 		//
 		do {
-			System.out.println("Test num: " + secretNumber);
+			//System.out.println("Test num: " + secretNumber);
 			int bulls = 0;
 			int cows = 0;
 			System.out.print("Try to guess the secret number: ");
@@ -43,13 +43,15 @@ public class TheGame {
 				game = false;
 				break;
 			}
-			trynum++;
 			// Convert the secret number to String for more easily comparisons.
+			// Add zero to beginning of String, if "guess" start with zero.
 			String guessStr = String.format("%04d", guess);
-			if (guessStr.length() != 4 || !uniqueNumber(guess)) {
-				System.out.println("\nYou entered a wrong number. Accepted only four digit integer, without repeating digits.");
+			if (!uniqueNumber(guess)) {
+				System.out.println(
+						"\nYou entered a WRONG number. Accepted only four digit number with no duplicate digits.");
 				continue;
 			}
+			trynum++;
 			for (int i = 0; i < 4; i++) {
 				if (guessStr.charAt(i) == secretStr.charAt(i)) {
 					bulls++;
@@ -70,10 +72,14 @@ public class TheGame {
 		}
 	}
 
-	// Comparing each number with the next after him. If identical the method
+	// Comparing each number with the next after him. If meet identical the
+	// method
 	// returns false
 	public static boolean uniqueNumber(int secretNumber) {
 		String checknum = String.valueOf(secretNumber);
+		if (checknum.length() != 4) {
+			return false;
+		}
 		if (checknum.charAt(0) == checknum.charAt(1)) {
 			return false;
 		} else if (checknum.charAt(1) == checknum.charAt(2)) {
@@ -89,9 +95,9 @@ public class TheGame {
 	// game.
 	public static void wellcomeMsg() {
 		System.out.println("******************************************" + "\n*                                        *"
-				+ "\n*      Welcome to Cows and bulls game    *" + "\n*           Game rules goes here         *"
-				+ "\n*       To QUIT the game put 919191      *" + "\n*                                        *"
-				+ "\n******************************************\n");
+				+ "\n*     WELCOME to Cows and bulls game     *" + "\n*     Try to guess our secret number     *"
+				+ "\n*                                        *" + "\n*  If you want to QUIT just type 919191  *"
+				+ "\n*                                        *" + "\n******************************************\n");
 	}
 
 	public static void surrenderMsg(int trynum, int number) {
@@ -101,10 +107,18 @@ public class TheGame {
 	}
 
 	public static void winMsg(int trynum, int number) {
-		System.out.println("\n******************************************"
-				+ "\n*                                        *" + "\n*             CONGRATULATION!            *"
-				+ "\n*          You Win in " + trynum + " attempts!        *" + "\n*       The secret number is "
-				+ number + ".       *" + "\n*                                        *"
-				+ "\n******************************************\n");
+		if (trynum > 10) {
+			System.out.println("\n******************************************"
+					+ "\n*                                        *" + "\n*             CONGRATULATION!            *"
+					+ "\n*          You Win in " + trynum + " attempts!       *" + "\n*       The secret number is "
+					+ number + ".       *" + "\n*                                        *"
+					+ "\n******************************************\n");
+		} else if (trynum < 10) {
+			System.out.println("\n******************************************"
+					+ "\n*                                        *" + "\n*             CONGRATULATION!            *"
+					+ "\n*          You Win in " + trynum + " attempts!        *" + "\n*       The secret number is "
+					+ number + ".       *" + "\n*                                        *"
+					+ "\n******************************************\n");
+		}
 	}
 }
