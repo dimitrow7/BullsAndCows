@@ -16,10 +16,10 @@ import java.util.Scanner;
 
 public class TheGame {
 	public static void main(String[] args) {
-		wellcomeMsg();
 		Random r = new Random();
 		int secretNumber = 0;
-		int trynum = 0;
+		int attempts = 0;
+		messagesCenter(1, 0, 0);
 		// Generate a new number until meet the condition of the method
 		// uniqueNumber
 		do {
@@ -31,7 +31,7 @@ public class TheGame {
 		Scanner input = new Scanner(System.in);
 		//
 		do {
-			//System.out.println("Test num: " + secretNumber);
+			System.out.println("Test num: " + secretNumber);
 			int bulls = 0;
 			int cows = 0;
 			System.out.print("Try to guess the secret number: ");
@@ -51,7 +51,7 @@ public class TheGame {
 						"\nYou entered a WRONG number. Accepted only four digit number with no duplicate digits.");
 				continue;
 			}
-			trynum++;
+			attempts++;
 			for (int i = 0; i < 4; i++) {
 				if (guessStr.charAt(i) == secretStr.charAt(i)) {
 					bulls++;
@@ -66,15 +66,13 @@ public class TheGame {
 			}
 		} while (game);
 		if (quit) {
-			surrenderMsg(trynum, secretNumber);
+			messagesCenter(2, attempts, secretNumber);
 		} else {
-			winMsg(trynum, secretNumber);
+			messagesCenter(3, attempts, secretNumber);
 		}
 	}
 
-	// Comparing each number with the next after him. If meet identical the
-	// method
-	// returns false
+	// This method is responsible for unique number (random generator and user input)
 	public static boolean uniqueNumber(int secretNumber) {
 		String checknum = String.valueOf(secretNumber);
 		if (checknum.length() != 4) {
@@ -91,34 +89,44 @@ public class TheGame {
 		}
 	}
 
-	// Methods responsible for the messages that the user receives during the}
+	// This method is responsible for the messages that the user receives during the
 	// game.
-	public static void wellcomeMsg() {
-		System.out.println("******************************************" + "\n*                                        *"
-				+ "\n*     WELCOME to Cows and bulls game     *" + "\n*     Try to guess our secret number     *"
-				+ "\n*                                        *" + "\n*  If you want to QUIT just type 919191  *"
-				+ "\n*                                        *" + "\n******************************************\n");
-	}
 
-	public static void surrenderMsg(int trynum, int number) {
-		System.out.println("\nYou surrender after " + trynum + " attempts!");
-		System.out.println("The secret number you are trying to guess is " + number);
-		System.out.println("Please dont give up and try again soon :)");
-	}
+	public static void messagesCenter(int caseNum, int attempts, int secretNumber) {
+		switch (caseNum) {
+		case 1:
+			System.out.println("******************************************"
+					+ "\n*                                        *" + "\n*     WELCOME to Cows and bulls game     *"
+					+ "\n*     Try to guess our secret number     *" + "\n*                                        *"
+					+ "\n*  If you want to QUIT just type 919191  *" + "\n*                                        *"
+					+ "\n******************************************\n");
+			break;
+		case 2:
+			System.out.println("\nYou surrender after " + attempts + " attempts!");
+			System.out.println("The secret number you are trying to guess is " + secretNumber);
+			System.out.println("Please dont give up and try again soon :)");
+			break;
+		case 3:
+			if (attempts >= 10) {
+				System.out.println(
+						"\n******************************************" + "\n*                                        *"
+								+ "\n*             CONGRATULATION!            *" + "\n*          You Win in " + attempts
+								+ " attempts!       *" + "\n*       The secret number is " + secretNumber + ".       *"
+								+ "\n*                                        *"
+								+ "\n******************************************\n");
+			} else if (attempts < 10) {
+				System.out.println(
+						"\n******************************************" + "\n*                                        *"
+								+ "\n*             CONGRATULATION!            *" + "\n*          You Win in " + attempts
+								+ " attempts!        *" + "\n*       The secret number is " + secretNumber + ".       *"
+								+ "\n*                                        *"
+								+ "\n******************************************\n");
+			}
+			;
+			break;
 
-	public static void winMsg(int trynum, int number) {
-		if (trynum > 10) {
-			System.out.println("\n******************************************"
-					+ "\n*                                        *" + "\n*             CONGRATULATION!            *"
-					+ "\n*          You Win in " + trynum + " attempts!       *" + "\n*       The secret number is "
-					+ number + ".       *" + "\n*                                        *"
-					+ "\n******************************************\n");
-		} else if (trynum < 10) {
-			System.out.println("\n******************************************"
-					+ "\n*                                        *" + "\n*             CONGRATULATION!            *"
-					+ "\n*          You Win in " + trynum + " attempts!        *" + "\n*       The secret number is "
-					+ number + ".       *" + "\n*                                        *"
-					+ "\n******************************************\n");
+		default:
+			break;
 		}
 	}
 }
