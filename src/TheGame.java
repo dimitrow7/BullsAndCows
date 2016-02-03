@@ -19,7 +19,7 @@ public class TheGame {
 		Random r = new Random();
 		int secretNumber = 0;
 		int attempts = 0;
-		messagesCenter(1, 0, 0);
+		messageCenter(1, 0, 0);
 		// Generate a new number until meet the condition of the method
 		// uniqueNumber
 		do {
@@ -66,13 +66,14 @@ public class TheGame {
 			}
 		} while (game);
 		if (quit) {
-			messagesCenter(2, attempts, secretNumber);
+			messageCenter(2, attempts, secretNumber);
 		} else {
-			messagesCenter(3, attempts, secretNumber);
+			messageCenter(3, attempts, secretNumber);
 		}
 	}
 
-	// This method is responsible for unique number (random generator and user input)
+	// This method is responsible for unique number (random generator and user
+	// input)
 	public static boolean uniqueNumber(int secretNumber) {
 		String checknum = String.valueOf(secretNumber);
 		if (checknum.length() != 4) {
@@ -89,10 +90,11 @@ public class TheGame {
 		}
 	}
 
-	// This method is responsible for the messages that the user receives during the
+	// This method is responsible for the messages that the user receives during
+	// the
 	// game.
 
-	public static void messagesCenter(int caseNum, int attempts, int secretNumber) {
+	public static void messageCenter(int caseNum, int attempts, int secretNumber) {
 		switch (caseNum) {
 		case 1:
 			System.out.println("******************************************"
